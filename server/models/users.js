@@ -33,16 +33,21 @@ class User extends Sequelize.Model{
                 allowNull:false,
                 defaultValue:0
             },
-            created_at:{
-                type:Sequelize.DATE,
-                allowNull:false,
-                defaultValue:Sequelize.NOW
-            },
             profile:{
                 type:Sequelize.STRING(50),
                 allowNull:true,
-            }
-        })
+            },
+        },
+        {
+            sequelize,
+            timestamps:true,
+            underscored:false,
+            modelName:'User',
+            tableName:'users',
+            paranoid:false,
+            charset:'utf8',
+            collate:'utf8_general_ci'
+        });
     }
     static associate(db){
         db.User.hasMany(db.Notice,{foreignKey:'noticeRegID',sourceKey:'id'});

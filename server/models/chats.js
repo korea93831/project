@@ -7,12 +7,17 @@ class Chat extends Sequelize.Model{
             chatContext:{
                 type: Sequelize.TEXT,
                 allowNull:true
-            },
-            created_at:{
-                type:Sequelize.DATE,
-                allowNull:false,
-                defaultValue:Sequelize.NOW
             }
+        },
+        {
+            sequelize,
+            timestamps:true,
+            underscored:false,
+            modelName:'Chat',
+            tableName:'chats',
+            paranoid:false,
+            charset:'utf8',
+            collate:'utf8_general_ci'
         })
     }
     static associate(db){

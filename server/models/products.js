@@ -24,19 +24,24 @@ class Product extends Sequelize.Model{
             price:{
                 type:Sequelize.INTEGER,
                 allowNull:true,
-            },
-            created_at:{
-                type:Sequelize.DATE,
-                allowNull:false,
-                defaultValue:Sequelize.NOW
-            },
+            }
+        },
+        {
+            sequelize,
+            timestamps:true,
+            underscored:false,
+            modelName:'Product',
+            tableName:'products',
+            paranoid:false,
+            charset:'utf8',
+            collate:'utf8_general_ci'
         })
     }
     static associate(db){
         db.Product.hasMany(db.MarkProduct,{ foreignKey: 'productId', sourceKey: 'id' });
         db.Product.hasMany(db.Chat,{ foreignKey: 'productId', sourceKey: 'id' });
         db.Product.belongsTo(db.User,{ foreignKey: 'productRegID', targetKey: 'id' });
-        db.Product.belongsTo(db.productTag,{ foreignKey: 'productTag', targetKey: 'id' });
+        db.Product.belongsTo(db.ProductTag,{ foreignKey: 'productTag', targetKey: 'id' });
     }
 }
 module.exports=Product;

@@ -7,12 +7,17 @@ class Reply extends Sequelize.Model{
             replyContext:{
                 type:Sequelize.TEXT,
                 allowNull:false
-            },
-            created_at:{
-                type:Sequelize.DATE,
-                allowNull:false,
-                defaultValue:Sequelize.NOW
-            },
+            }
+        },
+        {
+            sequelize,
+            timestamps:true,
+            underscored:false,
+            modelName:'Reply',
+            tableName:'reples',
+            paranoid:false,
+            charset:'utf8',
+            collate:'utf8_general_ci'
         })
     }
     static associate(db){

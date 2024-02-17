@@ -21,12 +21,17 @@ class Notice extends Sequelize.Model{
                 type:Sequelize.INTEGER,
                 allowNull:false,
                 defaultValue:0
-            },
-            created_at:{
-                type:Sequelize.DATE,
-                allowNull:false,
-                defaultValue:Sequelize.NOW
-            },
+            }
+        },
+        {
+            sequelize,
+            timestamps:true,
+            underscored:false,
+            modelName:'Notice',
+            tableName:'notices',
+            paranoid:false,
+            charset:'utf8',
+            collate:'utf8_general_ci'
         })
     }
     static associate(db){

@@ -1,17 +1,27 @@
 const Sequelize=require('sequelize');
 
-class productTag extends Sequelize.Model{
+class ProductTag extends Sequelize.Model{
     static initiate(sequelize){
 
-        productTag.init({
+        ProductTag.init({
             tagName:{
                 type: Sequelize.STRING(10),
                 allowNull:false
             }
+        },
+        {
+            sequelize,
+            timestamps:false,
+            underscored:false,
+            modelName:'ProductTag',
+            tableName:'producttags',
+            paranoid:false,
+            charset:'utf8',
+            collate:'utf8_general_ci'
         })
     }
     static associate(db){
-        db.productTag.belongsTo(db.Product,{ foreignKey: 'productTag', targetKey: 'id' });
+        db.ProductTag.belongsTo(db.Product,{ foreignKey: 'productTag', targetKey: 'id' });
     }
 }
-module.exports=productTag;
+module.exports=ProductTag;

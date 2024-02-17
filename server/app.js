@@ -5,12 +5,22 @@ const cookieParser=require('cookie-parser');
 const session=require('express-session');
 const dotenv=require('dotenv');
 const passport=require('passport');
+const { sequelize } = require('./models');
 
 dotenv.config();
 
 const app=express();
 
 app.set('port',process.env.PORT||3000);
+app.set('view engine','html');
+
+sequelize.sync({force:false})
+.then(()=>{
+    console.log('데이터베이스 연결 성공');
+})
+.catch((err)=>{
+    console.error(err);
+})
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname,'public')))
@@ -27,6 +37,10 @@ app.use(session({
         secure:false
     }
 }));
+
+const homeRouter=require('./routes/home.js');
+app.use('/',homeRouter);
+
 
 app.use((req,res,next)=>{
     const error=new Error(`${req,method} ${req.method} 라우터가 없습니다.`);
