@@ -12,7 +12,7 @@ dotenv.config();
 const app=express();
 
 app.set('port',process.env.PORT||3000);
-app.set('view engine','html');
+
 
 sequelize.sync({force:false})
 .then(()=>{
