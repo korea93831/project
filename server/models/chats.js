@@ -24,6 +24,7 @@ class Chat extends Sequelize.Model{
         db.Chat.belongsTo(db.User,{ foreignKey: 'sendChatter', targetKey: 'id' });
         db.Chat.belongsTo(db.User,{ foreignKey: 'catchCatter', targetKey: 'id' });
         db.Chat.belongsTo(db.Product,{ foreignKey: 'productId', targetKey: 'id' });
+       
     }
 }
 module.exports=Chat;

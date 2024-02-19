@@ -1,0 +1,64 @@
+exports.allGetUser=(req,res)=>{
+    res.send('allGet');
+    console.log('allget');
+}
+exports.allGetProduct=(req,res)=>{
+    res.send('allGetProduct');
+    console.log('allGetProduct');
+}
+exports.allGetNotice=(req,res)=>{
+    res.send('allGetNotice');
+    console.log('allGetNotice');
+}
+exports.selectUser=(req,res)=>{
+    res.send('selectUser');
+    console.log('selectUser');
+}
+exports.selectProduct=(req,res)=>{
+    res.send('selectProduct');
+    console.log('selectProduct');
+}
+exports.selectReply=(req,res)=>{
+    res.send('selectReply');
+    console.log('selectReply');
+}
+exports.selectNotice=(req,res)=>{
+    res.send('selectNotice');
+    console.log('selectNotice');
+}
+exports.getChatLog=(req,res)=>{
+    res.send('getChatLog');
+    console.log('getChatLog');
+}
+exports.Join=(req,res)=>{
+    res.send('Join');
+    console.log('Join');
+}
+exports.regProduct=(req,res)=>{
+    res.send('regProduct');
+    console.log('regProduct');
+}
+exports.regNotice=(req,res)=>{
+    res.send('regNotice');
+    console.log('regNotice');
+}
+exports.regReply=(req,res)=>{
+    res.send('regReply');
+    console.log('regReply');
+}
+exports.ChatLog=(req,res)=>{
+    res.send('ChatLog');
+    console.log('ChatLog');
+}
+exports.updateUser=(req,res)=>{
+    res.send('updateUser');
+    console.log('updateUser');
+}
+exports.updateProduct=(req,res)=>{
+    res.send('updateProduct');
+    console.log('updateProduct');
+}
+exports.updateNotice=(req,res)=>{
+    res.send('updateNotice');
+    console.log('updateNotice');
+}
