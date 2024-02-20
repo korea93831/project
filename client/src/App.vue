@@ -79,7 +79,6 @@ export default {
       }else{
         alert('chatting')
       }
-      alert(this.alertmessage);
     }
   }
 }
