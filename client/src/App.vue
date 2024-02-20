@@ -31,19 +31,32 @@
       <router-view/>
     </v-main>
 
+          <!-- 게시글 생성 버튼 -->
+          <VLayoutItem model-value position="bottom" class="text-end" size="88">
+        <div class="ma-4 pointer-events-initial">
+          <VBtn icon="mdi-plus" size="large" color="primary" elevation="8" v-on:click="showDialog()"></VBtn>
+        </div>
+      </VLayoutItem>
+
+     
+
   </v-app>
+
+
 </template>
 
 <script>
 import axios from 'axios';
 import router from './router'
+// import FormDialog from './components/FormDialog.vue'
 
 
 export default {
   name: 'App',
-
+  // components:{FormDialog},
   data: () => ({
-    alertmessage:'',
+    myFormDialog:true,
+    alertmessage:[],
     drawer:false,
     group:null,
     items:[
@@ -66,21 +79,54 @@ export default {
       this.drawer=false
     },
   },
+  computed:{
+    
+  },
   methods:{
+    getPostRes(url){
+      axios.post(url,JSON.stringify())
+      .then((response)=>{
+        console.log(response.data);
+      })
+    },
+
+    // 메뉴선택시 이벤트
     menuAction(action){
+      let posturl="";
       if(action==="market"){
         router.push({name:'home'});
-        const response=axios.post('http://localhost:3000/data/allproduct');
-        this.alertmessage=response.data
+        posturl='http://localhost:3000/data/allproduct';
+        this.getPostRes(posturl);
       }else if(action==="notice"){
         router.push({name:'notice'});
-        const response=axios.post('http://localhost:3000/data/allnotice');
-        this.alertmessage=response.data
+        posturl='http://localhost:3000/data/allnotice';
+        this.getPostRes(posturl);
       }else{
-        alert('chatting')
+        alert("chatting");
       }
+    },
+
+    showDialog(){
+      console.log(this[`myFormDialog`])
+      console.log('dialog open')
+    },
+    hideDialog(){
+      this[`myFormDialog`]=false
+    },
+    submitDialog(){
+      this.hideDialog()
     }
   }
 }
 </script>
 
+
+<style scoped>
+  .pointer-events-none {
+    pointer-events: none;
+  }
+  
+  .pointer-events-initial {
+    pointer-events: initial;
+  }
+</style>

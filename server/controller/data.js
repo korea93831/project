@@ -3,11 +3,11 @@ exports.allGetUser=(req,res)=>{
     console.log('allget');
 }
 exports.allGetProduct=(req,res)=>{
-    res.json('allGetProduct');
+    res.json({"message":'allGetProduct'});
     console.log('allGetProduct');
 }
 exports.allGetNotice=(req,res)=>{
-    res.send('allGetNotice');
+    res.json({"message":'allGetNotice'});
     console.log('allGetNotice');
 }
 exports.selectUser=(req,res)=>{
@@ -37,6 +37,8 @@ exports.Join=(req,res)=>{
 exports.regProduct=(req,res)=>{
     res.send('regProduct');
     console.log('regProduct');
+    req.body
+
 }
 exports.regNotice=(req,res)=>{
     res.send('regNotice');

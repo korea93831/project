@@ -12,11 +12,13 @@
           </v-col>
         </v-row>
       </v-container>
+
     </div>
+    
   </div>
+  
 </template>
 <script>
-import axios
 export default {
   components: {},
   data() {
