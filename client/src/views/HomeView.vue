@@ -1,5 +1,6 @@
 <template>
-  <div>  
+  <div>
+    <div>  
     <v-container>
         <v-row>
           <v-col
@@ -12,17 +13,22 @@
         </v-row>
       </v-container>
     </div>
-
+  </div>
 </template>
-
 <script>
-import { defineComponent } from 'vue';
-
-// Components
-
-export default defineComponent({
-
-  components: {
+import axios
+export default {
+  components: {},
+  data() {
+    return {
+      sampleData: ''
+    }
   },
-});
+  created() {
+    
+  },
+  mounted() {},
+  unmounted() {},
+  methods: {}
+}
 </script>

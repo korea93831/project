@@ -3,7 +3,7 @@ exports.allGetUser=(req,res)=>{
     console.log('allget');
 }
 exports.allGetProduct=(req,res)=>{
-    res.send('allGetProduct');
+    res.json('allGetProduct');
     console.log('allGetProduct');
 }
 exports.allGetNotice=(req,res)=>{

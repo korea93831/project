@@ -15,15 +15,18 @@
 
 </template>
 <script>
+import axios from 'axios';
 export default {
 components: {},
 data() {
 return {
-sampleData: ''
+  alertmessage:''
 }
 },
-created() {},
-mounted() {},
+created() {
+},
+mounted() {
+},
 unmounted() {},
 methods: {}
 }

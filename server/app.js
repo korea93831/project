@@ -5,13 +5,13 @@ const cookieParser=require('cookie-parser');
 const session=require('express-session');
 const dotenv=require('dotenv');
 const passport=require('passport');
+const cors=require('cors');
 const passportConfig=require('./passport');
 const { sequelize } = require('./models');
 
 dotenv.config();
 
 const app=express();
-
 app.set('port',process.env.PORT||3000);
 
 
@@ -22,7 +22,7 @@ sequelize.sync({force:true})
 .catch((err)=>{
     console.error(err);
 })
-
+app.use(cors());
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname,'public')))
 app.use(express.json())
