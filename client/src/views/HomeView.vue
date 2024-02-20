@@ -12,13 +12,12 @@
           </v-col>
         </v-row>
       </v-container>
-
     </div>
-    
   </div>
   
 </template>
 <script>
+
 export default {
   components: {},
   data() {
@@ -31,6 +30,6 @@ export default {
   },
   mounted() {},
   unmounted() {},
-  methods: {}
+  methods: {  }
 }
 </script>

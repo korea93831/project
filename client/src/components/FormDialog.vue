@@ -1,50 +1,56 @@
 <template>
-
-    <v-dialog :value="value">
-        <v-card>
-        <v-card-title>{{ headerTitle }}</v-card-title>
-        <v-card-text>
-            <slot name="body">{{ bodyContent }}</slot>
-        </v-card-text>
-        <v-card-actions>
-            <v-btn
-                color="amber"
-                dark
-                small
-                @click="$emit('hide')">
-                등록
-            </v-btn>
-
-            <v-btn
-                color="success"
-                small
-                @click="$emit('submit')"
-                >
-                삭제
-            </v-btn>
-        </v-card-actions>
+    <v-card>
+      <v-card-title>
+          {{ headerTitle }}
+      </v-card-title>
+      <v-card-text>
+        <slot name="body">
+            {{ defaultBodyContent }}
+        </slot>
+      </v-card-text>
+      <v-card-actions class="justify-end mr-2 pb-4">
+          <v-btn
+              color="amber"
+              dark
+              rounded
+              small
+              @click="$emit('hide')"
+          >
+              {{ footerHideTitle }}
+          </v-btn>
+          <template v-if="footerSubmit">
+              <v-btn
+                  color="success"
+                  rounded
+                  small
+                  @click="$emit('submit')"
+              >
+                  {{ footerSubmitTitle }}
+              </v-btn>
+          </template>
+      </v-card-actions>
     </v-card>
-    </v-dialog>
-    
-</template>
+  </template>
 <script>
 export default {
-    name:'formDialog',
-    props:{
-        value:Boolean,
-        headerTitle:{
-            type:String,
-            default:'제목'
-        },
+  name: 'FormDialog',
+  props: {
+    footerSubmit: {
+      type: Boolean,
+      default: true,
     },
-    components: {},
-    data(){
-        return{
-            bodyContent:'body slot 영역'
-        };
+    headerTitle: {
+      type: String,
+      default: '제목',
     },
-    methods:{
-        
-    }
+    footerSubmitTitle: {
+      type: String,
+      default: '저장',
+    },
+  },
+  data: () => ({
+      footerHideTitle: '닫기',
+      defaultBodyContent: 'body slot 영역을 작성해주세요.',
+  }),
 }
 </script>

@@ -30,13 +30,38 @@
     <v-main>
       <router-view/>
     </v-main>
-
-          <!-- 게시글 생성 버튼 -->
-          <VLayoutItem model-value position="bottom" class="text-end" size="88">
+    <v-container>
+                <!-- 게시글 생성 버튼 -->
+      <VLayoutItem model-value position="bottom" class="text-end" size="88">
         <div class="ma-4 pointer-events-initial">
           <VBtn icon="mdi-plus" size="large" color="primary" elevation="8" v-on:click="showDialog()"></VBtn>
         </div>
       </VLayoutItem>
+        <v-dialog
+          v-model="FormDialog"
+        >
+          <form-dialog
+            header-title="텍스트"
+            @hide="hideDialog('Text')"
+            @submit="submitDialog('Text')"
+          >
+            <template v-slot:body>
+              <!-- <v-text-field
+                  placeholder="내용을 입력하세요"
+              /> -->
+              
+              <!-- <PostNotice></PostNotice> 게시글작성컴포넌트 -->
+              <!-- <PostProduct></PostProduct> 중고물품판매작성컴포넌트 -->
+              <JoinForm></JoinForm>
+            </template>
+          </form-dialog>
+
+
+        </v-dialog>
+
+    </v-container>
+
+
 
      
 
@@ -48,14 +73,17 @@
 <script>
 import axios from 'axios';
 import router from './router'
-// import FormDialog from './components/FormDialog.vue'
+import FormDialog from './components/FormDialog.vue'
+// import PostNotice from './components/PostNotice.vue'
+// import PostProduct from './components/PostProduct.vue'
+import JoinForm from './components/joinForm.vue'
 
 
 export default {
   name: 'App',
-  // components:{FormDialog},
+  components:{FormDialog,JoinForm},
   data: () => ({
-    myFormDialog:true,
+    FormDialog:false,
     alertmessage:[],
     drawer:false,
     group:null,
@@ -107,11 +135,11 @@ export default {
     },
 
     showDialog(){
-      console.log(this[`myFormDialog`])
+      this.FormDialog=true;
       console.log('dialog open')
     },
     hideDialog(){
-      this[`myFormDialog`]=false
+      this.FormDialog=false;
     },
     submitDialog(){
       this.hideDialog()
