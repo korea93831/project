@@ -6,15 +6,15 @@
       <v-app-bar-title>Application</v-app-bar-title>
 
       <v-spacer></v-spacer>
-
-<v-text-field
+  <v-btn variant="outliend" @click=join()>SIGN-UP</v-btn><v-btn  variant="outliend" @click=login()>SIGN-IN</v-btn>
+<!-- <v-text-field
         v-model="search"
         label="Search"
         prepend-inner-icon="mdi-magnify"
         single-line
         variant="outlined"
         hide-details
-      ></v-text-field>
+      ></v-text-field> -->
       <v-btn icon="mdi-dots-vertical">
       </v-btn>
     </v-app-bar>
@@ -39,9 +39,10 @@
       </VLayoutItem>
         <v-dialog
           v-model="FormDialog"
+          width="50%"
         >
           <form-dialog
-            header-title=dialogtitle
+            
             @hide="hideDialog('Text')"
             @submit="submitDialog('Text')"
           >
@@ -57,6 +58,12 @@
               </div>
               <div v-else-if="menu==='market'">
                 <PostProduct></PostProduct>
+              </div>
+              <div v-else-if="menu==='login'">
+                <LoginForm></LoginForm>
+              </div>
+              <div v-else-if="menu==='join'">
+                <JoinForm></JoinForm>
               </div>
             </template>
           </form-dialog>
@@ -81,12 +88,13 @@ import router from './router'
 import FormDialog from './components/FormDialog.vue'
 import PostNotice from './components/PostNotice.vue'
 import PostProduct from './components/PostProduct.vue'
-// import JoinForm from './components/joinForm.vue'
+import JoinForm from './components/joinForm.vue'
+import LoginForm from './components/LoginForm.vue'
 
 
 export default {
   name: 'App',
-  components:{FormDialog,PostNotice,PostProduct},
+  components:{FormDialog,PostNotice,PostProduct,LoginForm,JoinForm},
   data: () => ({
     FormDialog:false,
     alertmessage:[],
@@ -125,23 +133,31 @@ export default {
       if(action==="market"){
         router.push({name:'home'});
         // posturl='http://localhost:3000/data/allproduct';
-        
-        this.menu='market'
+        this.$store.commit('setMenuState',action)  
+        this.menu=this.$store.getters.getMenuState
         this.dialogTitle="중고물품 올리기"
       }else if(action==="notice"){
         router.push({name:'notice'});
         // posturl='http://localhost:3000/data/allnotice';
-        
-        this.menu='notice';
+        this.$store.commit('setMenuState',action)
+        this.menu=this.$store.getters.getMenuState
         this.dialogTitle="게시글 올리기";
       }else{
         alert("기능개발중");
       }
     },
-
+    join(){
+      this.FormDialog=true;
+      this.$store.commit('setMenuState','join') 
+      this.menu=this.$store.getters.getMenuState
+    },
+    login(){
+      this.FormDialog=true;
+      this.$store.commit('setMenuState','login') 
+      this.menu=this.$store.getters.getMenuState
+    },
     showDialog(){
       this.FormDialog=true;
-      console.log('dialog open')
     },
     hideDialog(){
       this.FormDialog=false;

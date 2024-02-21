@@ -36,7 +36,6 @@
   </template>
 <script>
 import axios from 'axios';
-import app from '../App.vue'
 export default {
   name: 'FormDialog',
   props: {
@@ -57,29 +56,44 @@ export default {
       footerHideTitle: '닫기',
       defaultBodyContent: 'body slot 영역을 작성해주세요.'
   }),
-  watch:{
-
+  unmounted(){
   },
   methods:{
      postSubmit(){
-      if(app.menu=="notice"){
+      const menu=this.$store.getters.getMenuState;
+      if(menu==="notice"){
         let postJson=this.$store.getters.getPostNotice
       console.log(postJson)
       let posturl='';
       posturl='http://localhost:3000/data/regNotice';
       axios.post(posturl,postJson)
-      .then(console.log('등록완료'))
+      .then(
+        console.log(Response)
+      )
       .catch(error=>{
         this.errorMessage=error.message;
         console.error("postErr",error);
       })
-      this.$emit('submit')
-      }else if(app.menu=="market"){
+      
+      }
+      else if(menu=="market"){
         let postJson=this.$store.getters.getPostProduct
         console.log(postJson)
-        let posturl='';
-        posturl='http://localhost:3000/data/reg'
+        // let posturl='';
+        // posturl='http://localhost:3000/data/reg'
       }
+      else if(menu=='join'){
+        let postJson=this.$store.getters.getJoinInfo
+        console.log(`클라이언트-> 서버 : ${postJson}`)
+        let postUrl='http://localhost:3000/auth/join';
+        axios.post(postUrl,postJson)
+        .then(console.log(Response))
+        .catch(error=>{
+          this.errorMessage=error.message;
+          console.error("postErr",error)
+        })
+      }
+      this.$emit('submit')
     },
   }
 }

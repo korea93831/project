@@ -6,7 +6,7 @@ class Notice extends Sequelize.Model{
         Notice.init({
             NoticeTitle:{
                 type:Sequelize.STRING(40),
-                allowNull:fatrlse
+                allowNull:false
             },
             NoticeContext:{
                 type:Sequelize.TEXT,

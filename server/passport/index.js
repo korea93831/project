@@ -1,5 +1,5 @@
 const passport=require('passport');
-const loacl=require('./localStrategy');
+const LocalStrategy=require('passport-local').Strategy;
 const User=require('../models/users');
 
 module.exports=()=>{
@@ -13,5 +13,20 @@ module.exports=()=>{
         .catch(err=>done(err));
     });
 
-    local();
+    passport.use(new LocalStrategy({
+        usernameField:'email',
+        passwordField:'password',
+    },(email,password,done)=>{
+        const result=User.filter((user)=>user.email===email);
+        if(result.length>0){
+            const user=result[0];
+            if(password===user.password){
+                done(null,user);
+            }else{
+                done(null,false,{message:'비밀번호 틀림'});
+            }
+        }else{
+            done(null,false,{message:'가입되지 않은 회원입니다'});
+        }
+    }));
 };
