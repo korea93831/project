@@ -81,11 +81,26 @@ return {
         v => (v && v.length <= 10) || 'Name must be less than 10 characters',
       ],
     productContext:'',
+    
 }
 },
 created() {},
 mounted() {},
 unmounted() {},
-methods: {}
+methods: {},
+watch:{
+  files(){
+    this.$store.commit('setProductfiles',this.files)    
+  },
+  productTitle(){
+    this.$store.commit('setProductTitle',this.productTitle)
+  },
+  productPrice(){
+    this.$store.commit('setProductPrice',this.productPrice)
+  },
+  productContext(){
+    this.$store.commit('setproductContext',this.productContext)
+  }
+}
 }
 </script>

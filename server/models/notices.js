@@ -6,11 +6,15 @@ class Notice extends Sequelize.Model{
         Notice.init({
             NoticeTitle:{
                 type:Sequelize.STRING(40),
-                allowNull:false
+                allowNull:fatrlse
             },
             NoticeContext:{
                 type:Sequelize.TEXT,
                 allowNull:true,
+            },
+            NoticeTag:{
+                type:Sequelize.STRING(20),
+                allowNull:true
             },
             goodCount:{
                 type:Sequelize.INTEGER,

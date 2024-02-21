@@ -41,18 +41,23 @@
           v-model="FormDialog"
         >
           <form-dialog
-            header-title="텍스트"
+            header-title=dialogtitle
             @hide="hideDialog('Text')"
             @submit="submitDialog('Text')"
           >
             <template v-slot:body>
+
+
               <!-- <v-text-field
                   placeholder="내용을 입력하세요"
               /> -->
               
-              <!-- <PostNotice></PostNotice> 게시글작성컴포넌트 -->
-              <!-- <PostProduct></PostProduct> 중고물품판매작성컴포넌트 -->
-              <JoinForm></JoinForm>
+              <div v-if="menu==='notice'">
+                <PostNotice></PostNotice> 
+              </div>
+              <div v-else-if="menu==='market'">
+                <PostProduct></PostProduct>
+              </div>
             </template>
           </form-dialog>
 
@@ -71,22 +76,24 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 import router from './router'
 import FormDialog from './components/FormDialog.vue'
-// import PostNotice from './components/PostNotice.vue'
-// import PostProduct from './components/PostProduct.vue'
-import JoinForm from './components/joinForm.vue'
+import PostNotice from './components/PostNotice.vue'
+import PostProduct from './components/PostProduct.vue'
+// import JoinForm from './components/joinForm.vue'
 
 
 export default {
   name: 'App',
-  components:{FormDialog,JoinForm},
+  components:{FormDialog,PostNotice,PostProduct},
   data: () => ({
     FormDialog:false,
     alertmessage:[],
     drawer:false,
     group:null,
+    menu:"market",
+    dialogTitle:'중고물품 올리기',
     items:[
       {
         title:'중고장터',
@@ -111,26 +118,24 @@ export default {
     
   },
   methods:{
-    getPostRes(url){
-      axios.post(url,JSON.stringify())
-      .then((response)=>{
-        console.log(response.data);
-      })
-    },
 
     // 메뉴선택시 이벤트
     menuAction(action){
-      let posturl="";
+      // let posturl="";
       if(action==="market"){
         router.push({name:'home'});
-        posturl='http://localhost:3000/data/allproduct';
-        this.getPostRes(posturl);
+        // posturl='http://localhost:3000/data/allproduct';
+        
+        this.menu='market'
+        this.dialogTitle="중고물품 올리기"
       }else if(action==="notice"){
         router.push({name:'notice'});
-        posturl='http://localhost:3000/data/allnotice';
-        this.getPostRes(posturl);
+        // posturl='http://localhost:3000/data/allnotice';
+        
+        this.menu='notice';
+        this.dialogTitle="게시글 올리기";
       }else{
-        alert("chatting");
+        alert("기능개발중");
       }
     },
 

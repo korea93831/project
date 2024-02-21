@@ -1,3 +1,7 @@
+const express=require('express');
+const Product=require('../models/products');
+const Notice=require('../models/notices');
+
 exports.allGetUser=(req,res)=>{
     res.send('allGet');
     console.log('allget');
@@ -6,8 +10,12 @@ exports.allGetProduct=(req,res)=>{
     res.json({"message":'allGetProduct'});
     console.log('allGetProduct');
 }
-exports.allGetNotice=(req,res)=>{
-    res.json({"message":'allGetNotice'});
+exports.allGetNotice=async(req,res)=>{
+    data= await Notice.findAll({
+        attributes:['NoticeTitle','NoticeContext','NoticeTag','goodCount','repleCount'],
+        raw:true});
+    console.log(data);
+    res.json(data);
     console.log('allGetNotice');
 }
 exports.selectUser=(req,res)=>{
@@ -35,12 +43,23 @@ exports.Join=(req,res)=>{
     console.log('Join');
 }
 exports.regProduct=(req,res)=>{
+    console.log(req.body);
     res.send('regProduct');
     console.log('regProduct');
-    req.body
-
 }
-exports.regNotice=(req,res)=>{
+exports.regNotice=async(req,res)=>{
+    console.log(`${req.body.noticeTitle}+${req.body.noticeContext}+${req.body.select}`);
+    try{
+        const notice= await Notice.create({
+            NoticeTitle:req.body.noticeTitle,
+            NoticeContext:req.body.noticeContext,
+            NoticeTag:req.body.select,
+
+        })
+    }catch(err){
+        console.error(err);
+    }
+
     res.send('regNotice');
     console.log('regNotice');
 }

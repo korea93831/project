@@ -4,7 +4,7 @@
         <v-row>
             <v-col
             cols="12"
-            md="2">
+            md="3">
             <v-select
             v-model="select"
             :items="tags"
@@ -53,11 +53,24 @@ return {
         v => !!v || 'Name is required',
         v => (v && v.length <= 10) || 'Name must be less than 10 characters',
       ],
+    
 }
 },
-created() {},
+created() {
+},
 mounted() {},
 unmounted() {},
-methods: {}
+methods: {},
+watch:{
+  noticeTitle(){
+    this.$store.commit('setNoticeTitle',this.noticeTitle)    
+  },
+  select(){
+    this.$store.commit('setNoticeSelect',this.select)
+  },
+  noticeContext(){
+    this.$store.commit('setNoticeContext',this.noticeContext)
+  }
+}
 }
 </script>

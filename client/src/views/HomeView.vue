@@ -30,6 +30,7 @@ export default {
   },
   mounted() {},
   unmounted() {},
-  methods: {  }
+  methods: {
+  }
 }
 </script>
