@@ -1,7 +1,6 @@
 const passport=require('passport');
 const LocalStrategy=require('passport-local').Strategy;
 const bcrypt=require('bcrypt');
-
 const User=require('../models/users');
 
 module.exports=()=>{
@@ -13,8 +12,8 @@ module.exports=()=>{
             },
             async(email,password,done)=>{
                 try{
-                    const UserExist=await User.findOne({where:{email}});
-
+                    const UserExist=await User.findOne({where:{email:email}});
+                    
                     if(UserExist){
                         const result=await bcrypt.compare(password,UserExist.password);
                         if(result){

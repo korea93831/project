@@ -5,6 +5,7 @@ const User=require('../models/users');
 
 exports.join=async(req,res,next)=>{
         const{email,nickname,password,localMain,localSub,profile}=req.body;
+        console.log(`email:${email},nickname:${nickname},password:${password},localMain:${localMain},localSub:${localSub}`)
         try{
             const userExist= await User.findOne({where:{email}});
             if(userExist){
@@ -41,7 +42,8 @@ exports.login=async(req,res,next)=>{
                 console.error(loginError);
                 return next(loginError);
             }
-            return res.redirect('/');
+            return res.json({"login":'true',"userEmail":user.email,"userNickname":user.nickname});
+            // return res.json(user)
         });
     })(req,res,next);
 }

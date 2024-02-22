@@ -88,9 +88,24 @@ export default {
         let postUrl='http://localhost:3000/auth/join';
         axios.post(postUrl,postJson)
         .then(console.log(Response))
-        .catch(error=>{
-          this.errorMessage=error.message;
-          console.error("postErr",error)
+        .catch((err)=>{
+          console.error(err);
+        })
+      }
+      else if(menu=='login'){
+        let postJson=this.$store.getters.getLoginInfo
+        console.log(`클라이언트->서버: ${String(postJson)}`)
+        let postUrl='http://localhost:3000/auth/login';
+        axios.post(postUrl,postJson)
+        .then((response)=>{
+          console.log(response.data);
+          this.$store.commit('loginStore/setLoggedUser',true);
+          this.$store.commit('loginStore/setLoggedUserEmail',response.data.userEmail);
+          this.$store.commit('loginStore/setLoggedUserNickname',response.data.userNickname);
+          
+        })
+        .catch((err)=>{
+          console.error(err);
         })
       }
       this.$emit('submit')

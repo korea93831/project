@@ -76,6 +76,7 @@ password:'',
 nickname:'',
 localSub:'',
 localMain:null,
+
 emailRules: [
         value => {
           if (value) return true
@@ -110,10 +111,10 @@ watch:{
     this.$store.commit('setJoinNickname',this.nickname)
   },
   localMain(){
-    this.$store.commit('setJoinSelect',this.select)
+    this.$store.commit('setJoinSelect',this.localMain)
   },
   localSub(){
-    this.$store.commit('setJoinLocalSub',this.select)
+    this.$store.commit('setJoinLocalSub',this.localSub)
   }
 }
 }

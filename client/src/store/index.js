@@ -1,10 +1,12 @@
 import { createStore } from 'vuex'
+import loginStore from '@/store/loginStore'
 
 export default createStore({
   state: {
     postNotice:{"noticeTitle":'',"select":'',"noticeContext":''},
     postProduct:{"files":'',"productTitle":'',"productPrice":'',"productContext":''},
-    postJoin:{"email":'',"password":'',"nickname":'',"select":'',"localSub":''},
+    postJoin:{"email":'',"password":'',"nickname":'',"localMain":'',"localSub":''},
+    postLogin:{"email":'',"password":''},
     allNotice:[],
     allProduct:[],
     menu:''
@@ -19,6 +21,9 @@ export default createStore({
     getJoinInfo(state){
       return state.postJoin
     },
+    getLoginInfo(state){
+      return state.postLogin
+    },
     getAllNotice(state){
       return state.allNotice
     },
@@ -27,7 +32,7 @@ export default createStore({
     },
     getMenuState(state){
       return state.menu
-    }
+    },
   },
   mutations: {
     setNoticeTitle(state,item){
@@ -61,10 +66,16 @@ export default createStore({
       state.postJoin.nickname=item
     },
     setJoinSelect(state,item){
-      state.postJoin.select=item
+      state.postJoin.localMain=item
     },
     setJoinLocalSub(state,item){
       state.postJoin.localSub=item
+    },
+    setLoginEmail(state,item){
+      state.postLogin.email=item
+    },
+    setLoginPassword(state,item){
+      state.postLogin.password=item
     },
     addNotice(state,item){
       state.allNotice.push(item)
@@ -133,8 +144,15 @@ export default createStore({
     },
     setJoinLocalSub({commit},item){
       commit('setJoinLocalSub',item)
+    },
+    setLoginEmail({commit},item){
+      commit('setLoginEmail',item)
+    },
+    setLoginPassword({commit},item){
+      commit('setLoginPassword',item)
     }
   },
   modules: {
-  }
+    loginStore:loginStore
+  },
 })

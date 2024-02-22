@@ -12,16 +12,16 @@ class User extends Sequelize.Model{
             nickname:{
                 type:Sequelize.STRING(15),
                 allowNull:false,
-                unique:true
+                unique:false
             },
             password:{
                 type:Sequelize.STRING(100),
                 allowNull:true
             },
             localMain:{
-                type:Sequelize.INTEGER,
+                type:Sequelize.STRING(10),
                 allowNull:true,
-                unique:true
+                unique:false
             },
             localSub:{
                 type:Sequelize.STRING(40),

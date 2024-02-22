@@ -12,6 +12,7 @@ const { sequelize } = require('./models');
 dotenv.config();
 
 const app=express();
+passportConfig();
 app.set('port',process.env.PORT||3000);
 
 

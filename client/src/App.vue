@@ -6,7 +6,11 @@
       <v-app-bar-title>Application</v-app-bar-title>
 
       <v-spacer></v-spacer>
-  <v-btn variant="outliend" @click=join()>SIGN-UP</v-btn><v-btn  variant="outliend" @click=login()>SIGN-IN</v-btn>
+      <div v-if="isLoged">
+        <v-btn variant="outliend" @click=join()>SIGN-UP</v-btn>
+        <v-btn  variant="outliend" @click=login()>SIGN-IN</v-btn>
+      </div>
+  
 <!-- <v-text-field
         v-model="search"
         label="Search"
@@ -22,7 +26,9 @@
     v-model="drawer"
     temporary
     >
-      <v-list-item title="닉네임" subtitle="이메일"></v-list-item>
+      <v-list-item 
+      :title="title" 
+      :subtitle="subtitle"></v-list-item>
       <v-divider></v-divider>
       <!-- <v-list :items="items" :key="index" @click="menuAction(items[index].value)"></v-list> -->
       <v-list-item v-for="(item,index) in items" :key="index" @click="menuAction(item.value)">{{ item.title }}</v-list-item>
@@ -72,11 +78,6 @@
         </v-dialog>
 
     </v-container>
-
-
-
-     
-
   </v-app>
 
 
@@ -100,8 +101,9 @@ export default {
     alertmessage:[],
     drawer:false,
     group:null,
-    menu:"market",
+    frontmenu:"market",
     dialogTitle:'중고물품 올리기',
+    isLoged:true,
     items:[
       {
         title:'중고장터',
@@ -115,7 +117,9 @@ export default {
         title:'채팅',
         value:'chatting'
       }
-    ]
+    ],
+    title:this.$store.getters[loginStore,getLoggedUserInfo].userEmail,
+    subtitle:this.$store.getters[loginStore,getLoggedUserInfo].userNickname
   }),
   watch:{
     group(){
@@ -158,6 +162,7 @@ export default {
     },
     showDialog(){
       this.FormDialog=true;
+      // console.log(this.$loginStore.getters.getLoggedUserInfo.logged)
     },
     hideDialog(){
       this.FormDialog=false;
