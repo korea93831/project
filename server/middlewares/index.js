@@ -1,5 +1,5 @@
 exports.isLogedIn=(req,res,next)=>{
-    if(req,isAuthenticated()){
+    if(req.isAuthenticated()){
         next();
     } else{
         res.status(403).sned('로그인이 필요합니다');

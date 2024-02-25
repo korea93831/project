@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import loginStore from '@/store/loginStore'
+import persistedstate from 'vuex-persistedstate'
 
 export default createStore({
   state: {
@@ -9,7 +9,8 @@ export default createStore({
     postLogin:{"email":'',"password":''},
     allNotice:[],
     allProduct:[],
-    menu:''
+    menu:'',
+    loggedUserInfo:{"logged":false,"userEmail":'',"userNickname":''}
   },
   getters: {
     getPostNotice(state){
@@ -33,6 +34,9 @@ export default createStore({
     getMenuState(state){
       return state.menu
     },
+    getLoggedUserInfo(state){
+      return state.loggedUserInfo
+    }
   },
   mutations: {
     setNoticeTitle(state,item){
@@ -91,6 +95,15 @@ export default createStore({
     },
     setMenuState(state,item){
       state.menu=item
+    },
+    setLoggedUser(state,item){
+      state.loggedUserInfo.logged=item
+    },
+    setLoggedUserEmail(state,item){
+      state.loggedUserInfo.userEmail=item
+    },
+    setLoggedUserNickname(state,item){
+      state.loggedUserInfo.userNickname=item
     }
   },
   actions: {
@@ -150,9 +163,22 @@ export default createStore({
     },
     setLoginPassword({commit},item){
       commit('setLoginPassword',item)
-    }
+    },
+    setLoggedUser({commit},item){
+      commit('setLoggedUser',item)
+    },
+    setLoggedUserEmail({commit},item){
+      commit('setLoggedUserEmail',item)
+    },
+    setLoggedUserNickname({commit},item){
+      commit('setLoggedUserNickname',item)
+    },
   },
   modules: {
-    loginStore:loginStore
   },
-})
+  plugins:[
+    persistedstate({
+      paths:['loggedUserInfo']
+    })
+  ]
+});

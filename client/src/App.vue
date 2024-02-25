@@ -1,14 +1,17 @@
 <template>
  <v-app id="inspire">
     <v-app-bar extended>
-      <v-app-bar-nav-icon @click="drawer=!drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click=drawerNav></v-app-bar-nav-icon>
 
       <v-app-bar-title>Application</v-app-bar-title>
 
       <v-spacer></v-spacer>
-      <div v-if="isLoged">
+      <div v-if=!isUser>
         <v-btn variant="outliend" @click=join()>SIGN-UP</v-btn>
         <v-btn  variant="outliend" @click=login()>SIGN-IN</v-btn>
+      </div>
+      <div v-else>
+        <v-btn  variant="outliend" @click=logout()>LOGOUT</v-btn>
       </div>
   
 <!-- <v-text-field
@@ -49,8 +52,9 @@
         >
           <form-dialog
             
-            @hide="hideDialog('Text')"
-            @submit="submitDialog('Text')"
+            @hide="hideDialog()"
+            @submit="submitDialog()"
+            @islogged="isloggedUser()"
           >
             <template v-slot:body>
 
@@ -91,7 +95,8 @@ import PostNotice from './components/PostNotice.vue'
 import PostProduct from './components/PostProduct.vue'
 import JoinForm from './components/joinForm.vue'
 import LoginForm from './components/LoginForm.vue'
-
+import store from '@/store/index'
+import axios from 'axios'
 
 export default {
   name: 'App',
@@ -103,7 +108,7 @@ export default {
     group:null,
     frontmenu:"market",
     dialogTitle:'중고물품 올리기',
-    isLoged:true,
+    isUser:false,
     items:[
       {
         title:'중고장터',
@@ -118,8 +123,8 @@ export default {
         value:'chatting'
       }
     ],
-    title:this.$store.getters[loginStore,getLoggedUserInfo].userEmail,
-    subtitle:this.$store.getters[loginStore,getLoggedUserInfo].userNickname
+    title:store.getters.getLoggedUserInfo['userNickname'],
+    subtitle:store.getters.getLoggedUserInfo['userEmail']
   }),
   watch:{
     group(){
@@ -127,7 +132,9 @@ export default {
     },
   },
   computed:{
-    
+    // isLogged(){
+    //   return this.$refs.child_component.isLogged;
+    // }
   },
   methods:{
 
@@ -160,6 +167,16 @@ export default {
       this.$store.commit('setMenuState','login') 
       this.menu=this.$store.getters.getMenuState
     },
+    logout(){
+      this.title="",
+      this.subtitle,
+      this.isUser=false
+      this.$store.commit('setLoggedUser',false)
+      this.$store.commit('setLoggedUserEmail','')
+      this.$store.commit('setLoggedUserNickname','')
+      const postUrl='http://localhost:3000/auth/join'
+      axios.post(postUrl)
+    },
     showDialog(){
       this.FormDialog=true;
       // console.log(this.$loginStore.getters.getLoggedUserInfo.logged)
@@ -169,7 +186,21 @@ export default {
     },
     submitDialog(){
       this.hideDialog()
+    },
+    drawerNav(){
+      this.drawer=!this.drawer
+      this.title=store.getters.getLoggedUserInfo.userNickname
+      this.subtitle=store.getters.getLoggedUserInfo.userEmail
+    },
+    isloggedUser(){
+      this.isUser=true
+      console.log(this.isUser)
     }
+  },
+  unmounted(){
+    // this.$store.commit('setLoggedUser',false);
+    // this.$store.commit('setLoggedUserEmail','');
+    // this.$store.commit('setLoggedUserNickname','');
   }
 }
 </script>

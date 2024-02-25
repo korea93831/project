@@ -42,7 +42,9 @@ exports.login=async(req,res,next)=>{
                 console.error(loginError);
                 return next(loginError);
             }
-            return res.json({"login":'true',"userEmail":user.email,"userNickname":user.nickname});
+            
+            return res.json({"login":true,"userEmail":user.email,"userNickname":user.nickname});
+            // return res.redirect('/');
             // return res.json(user)
         });
     })(req,res,next);

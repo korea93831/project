@@ -60,7 +60,40 @@ created() {
 },
 mounted() {},
 unmounted() {},
-methods: {},
+methods: {
+  imageUploaad(){
+    let num=-1;
+    for(let i=0;i<this.$refs.files.files.length;i++){
+      this.files=[
+        ...this.files,
+        {
+          file:this.$refs.files.files[i],
+          preview:URL.createObjectURL(this.$refs.files.files[i]),
+          number:i
+        }
+      ];
+      num=i;
+    }
+    this.uploadImageIndex=num+1;
+    console.log(this.files);
+  },
+  imageAddUpload(){
+    console.log(this.$refs.files.files);
+    let num=-1;
+    for(let i=0;i<this.$refs.files.files.length;i++){
+      this.files=[
+        ...this.files,
+        {
+          file:this.$refs.files.files[i],
+          preview:URL.createObjectURL(this.$refs.files.files[i]),
+          number:i+this.uploadImageIndex
+        }
+      ];
+      num=i;
+    }
+    this.uploadImageIndex=this.uploadImageIndex+num+1;
+  }
+},
 watch:{
   noticeTitle(){
     this.$store.commit('setNoticeTitle',this.noticeTitle)    

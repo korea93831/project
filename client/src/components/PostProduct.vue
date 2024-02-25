@@ -15,6 +15,7 @@
             variant="outlined"
             prepend-icon="mdi-camera-plus-outline"
             >
+            <v-img :src="image"></v-img>
         <template v-slot:selection="{ fileNames }">
         <template v-for="fileName in fileNames" :key="fileName">
         <v-chip
@@ -73,6 +74,7 @@ export default {
 components: {},
 data() {
 return {
+    image:null,
     files:[],
     productTitle:'',
     productPrice:0,
