@@ -119,7 +119,7 @@ export default {
         this.$emit('islogged')
       }
       else if(menu=='product'){
-        let postJson=this.$store.getters.get
+        // let postJson=this.$store.getters.get
       }
       this.$emit('submit')
     },

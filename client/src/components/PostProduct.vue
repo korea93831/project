@@ -15,7 +15,11 @@
             variant="outlined"
             prepend-icon="mdi-camera-plus-outline"
             >
-            <v-img :src="image"></v-img>
+        <v-row>
+          <!-- <v-col sm="3" v-for="(file,f) in files" :key='f'> -->
+          <!-- <img :ref="file" src=""
+          </v-col> -->
+        </v-row>
         <template v-slot:selection="{ fileNames }">
         <template v-for="fileName in fileNames" :key="fileName">
         <v-chip
@@ -69,6 +73,7 @@
     </v-container>
   </v-form>
 </template>
+
 <script>
 export default {
 components: {},
@@ -77,6 +82,8 @@ return {
     image:null,
     files:[],
     productTitle:'',
+    previewImg:null,
+    currentImg:null,
     productPrice:0,
     nameRules: [
         v => !!v || 'Name is required',
@@ -89,9 +96,15 @@ return {
 created() {},
 mounted() {},
 unmounted() {},
-methods: {},
+methods: {
+  selectImg(image){
+    this.currentImg=image;
+    this.previewImg=URL.createObjectURL(this.currentImg);
+  }
+},
 watch:{
   files(){
+    console.log(this.files)
     this.$store.commit('setProductfiles',this.files)    
   },
   productTitle(){
